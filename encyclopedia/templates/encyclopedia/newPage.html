@@ -1,0 +1,38 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia - Create New Page
+{% endblock %}
+
+{% block body %}
+
+    {# Page already exists.. #}
+    {% if existing %}
+    
+    <h2>This entry already exists.. if you want to view or edit it, <a href="/wiki/{{entry}}">click here</a>.</h2>
+    
+    {# Editing #}
+    {% elif edit %}
+
+    <h2>Editing {{title}} </h2>
+
+    <form action="{% url 'encyclopedia:newPage' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Save">
+    </form>
+
+    {% else %}
+    
+    {# Create new page #}
+    <h1>Create New Page</h1>
+
+    <form action="{% url 'encyclopedia:newPage' %}" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Save">
+    </form>
+
+    {% endif %}
+
+{% endblock %}

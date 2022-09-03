@@ -1,0 +1,31 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+{% if search %}
+    <h1>You searched for {{ query }}</h1> 
+{% else %}
+    <h1>All Pages</h1>
+{% endif %}
+
+
+    {# search being true from search view allows the list of entries containing the query substring  #}
+    <ul>
+        {% if search %}
+            <h2>Pages containing {{ query }}:</h2>
+            {% for link in list %}
+            <li><a href="/wiki/{{link}}">{{ link }}</a></li>
+            {% endfor %}
+        {% else %}
+        
+        {# lists entry links #}
+        {% for entry in entries %}
+            <li><a href="/wiki/{{entry}}">{{ entry }}</a></li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+
+{% endblock %}
